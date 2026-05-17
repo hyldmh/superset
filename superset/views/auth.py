@@ -15,8 +15,9 @@
 # specific language governing permissions and limitations
 # under the License.
 
+from __future__ import annotations
+
 import logging
-from typing import Optional
 
 from flask import g, redirect
 from flask_appbuilder import expose
@@ -35,7 +36,7 @@ class SupersetAuthView(BaseSupersetView, AuthView):
 
     @expose("/")
     @no_cache
-    def login(self, provider: Optional[str] = None) -> WerkzeugResponse:
+    def login(self, provider: str | None = None) -> WerkzeugResponse:
         if g.user is not None and g.user.is_authenticated:
             return redirect(self.appbuilder.get_url_for_index)
 

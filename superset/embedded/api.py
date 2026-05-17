@@ -14,8 +14,9 @@
 # KIND, either express or implied.  See the License for the
 # specific language governing permissions and limitations
 # under the License.
+from __future__ import annotations
+
 import logging
-from typing import Optional
 
 from flask import Response
 from flask_appbuilder.api import expose, protect, safe
@@ -41,7 +42,7 @@ class EmbeddedDashboardRestApi(BaseSupersetModelRestApi):
     datamodel = SQLAInterface(EmbeddedDashboard)
 
     @before_request
-    def ensure_embedded_enabled(self) -> Optional[Response]:
+    def ensure_embedded_enabled(self) -> Response | None:
         if not is_feature_enabled("EMBEDDED_SUPERSET"):
             return self.response_404()
         return None

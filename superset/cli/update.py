@@ -14,11 +14,12 @@
 # KIND, either express or implied.  See the License for the
 # specific language governing permissions and limitations
 # under the License.
+from __future__ import annotations
+
 import json
 import logging
 import os
 import sys
-from typing import Optional
 
 import click
 from apispec import APISpec
@@ -110,7 +111,7 @@ def update_api_docs() -> None:
     help="An optional previous secret key, if PREVIOUS_SECRET_KEY "
     "is not set on the config",
 )
-def re_encrypt_secrets(previous_secret_key: Optional[str] = None) -> None:
+def re_encrypt_secrets(previous_secret_key: str | None = None) -> None:
     previous_secret_key = previous_secret_key or current_app.config.get(
         "PREVIOUS_SECRET_KEY"
     )
