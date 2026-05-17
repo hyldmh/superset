@@ -14,8 +14,9 @@
 # KIND, either express or implied.  See the License for the
 # specific language governing permissions and limitations
 # under the License.
+from __future__ import annotations
+
 import logging
-from typing import Optional
 
 from superset.daos.base import BaseDAO
 from superset.extensions import db
@@ -26,12 +27,12 @@ logger = logging.getLogger(__name__)
 
 class ThemeDAO(BaseDAO[Theme]):
     @classmethod
-    def find_by_uuid(cls, uuid: str) -> Optional[Theme]:
+    def find_by_uuid(cls, uuid: str) -> Theme | None:
         """Find theme by UUID."""
         return db.session.query(Theme).filter(Theme.uuid == uuid).first()
 
     @classmethod
-    def find_system_default(cls) -> Optional[Theme]:
+    def find_system_default(cls) -> Theme | None:
         """
         Find the current system default theme.
         Returns the theme with is_system_default=True if exactly one exists.
@@ -48,7 +49,7 @@ class ThemeDAO(BaseDAO[Theme]):
         return None
 
     @classmethod
-    def find_system_dark(cls) -> Optional[Theme]:
+    def find_system_dark(cls) -> Theme | None:
         """Find the current system dark theme.
 
         Returns the theme with is_system_dark=True if exactly one exists.

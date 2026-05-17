@@ -14,10 +14,11 @@
 # KIND, either express or implied.  See the License for the
 # specific language governing permissions and limitations
 # under the License.
+from __future__ import annotations
 
 import logging
 import uuid
-from typing import Any, cast, Union
+from typing import Any, cast
 
 from sqlalchemy import and_, func, literal, or_, select
 from sqlalchemy.orm import joinedload
@@ -39,7 +40,7 @@ from superset.utils.filters import get_dataset_access_filters
 
 logger = logging.getLogger(__name__)
 
-Datasource = Union[SqlaTable, Query, SavedQuery, SemanticView]
+Datasource = SqlaTable | Query | SavedQuery | SemanticView
 
 
 def _escape_ilike_fragment(value: str) -> str:
@@ -47,7 +48,7 @@ def _escape_ilike_fragment(value: str) -> str:
 
 
 class DatasourceDAO(BaseDAO[Datasource]):
-    sources: dict[Union[DatasourceType, str], type[Datasource]] = {
+    sources: dict[DatasourceType | str, type[Datasource]] = {
         DatasourceType.TABLE: SqlaTable,
         DatasourceType.QUERY: Query,
         DatasourceType.SAVEDQUERY: SavedQuery,
@@ -57,7 +58,7 @@ class DatasourceDAO(BaseDAO[Datasource]):
     @classmethod
     def get_datasource(
         cls,
-        datasource_type: Union[DatasourceType, str],
+        datasource_type: DatasourceType | str,
         database_id_or_uuid: int | str,
     ) -> Datasource:
         if datasource_type not in cls.sources:
