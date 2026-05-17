@@ -105,10 +105,7 @@ describe('async actions', () => {
     fetchMock.removeRoute(fetchQueryEndpoint);
     fetchMock.get(
       fetchQueryEndpoint,
-      JSON.stringify({
-        data: mockBigNumber,
-        query: { sqlEditorId: 'dfsadfs' },
-      }),
+      `{ "data": ${mockBigNumber}, "query": { "sqlEditorId": "dfsadfs" } }`,
       { name: fetchQueryEndpoint },
     );
 
@@ -450,8 +447,7 @@ describe('async actions', () => {
       });
     });
 
-    /* oxlint-disable-next-line jest/no-disabled-tests */
-    test.skip('parses large number result without losing precision', () =>
+    test('parses large number result without losing precision', () =>
       makeRequest().then(() => {
         expect(fetchMock.callHistory.calls(fetchQueryEndpoint)).toHaveLength(1);
         expect(dispatch.mock.calls.length).toBe(2);
