@@ -39,6 +39,7 @@ export enum Operators {
   NotIn = 'NOT_IN',
   Like = 'LIKE',
   CaseInsensitiveLike = 'ILIKE',
+  NotLike = 'NOT_LIKE',
   IsNotNull = 'IS_NOT_NULL',
   IsNull = 'IS_NULL',
   LatestPartition = 'LATEST_PARTITION',
@@ -57,6 +58,7 @@ export const OPERATOR_ENUM_TO_OPERATOR_TYPE: {
 } = {
   [Operators.Equals]: { display: t('Equal to (=)'), operation: '==' },
   [Operators.NotEquals]: { display: t('Not equal to (≠)'), operation: '!=' },
+  [Operators.NotLike]: { display: t('Not like'), operation: 'NOT LIKE' },
   [Operators.LessThan]: { display: t('Less than (<)'), operation: '<' },
   [Operators.LessThanOrEqual]: {
     display: t('Less or equal (<=)'),
