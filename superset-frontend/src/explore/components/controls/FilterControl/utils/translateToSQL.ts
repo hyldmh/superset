@@ -39,7 +39,9 @@ export const OPERATORS_TO_SQL = {
   'NOT IN': 'NOT IN',
   LIKE: 'LIKE',
   ILIKE: 'ILIKE',
+  'NOT LIKE': 'NOT LIKE',
   REGEX: 'REGEX',
+  'TEMPORAL_RANGE': 'TEMPORAL_RANGE',
   'IS NOT NULL': 'IS NOT NULL',
   'IS NULL': 'IS NULL',
   'IS TRUE': 'IS TRUE',
@@ -65,10 +67,8 @@ export const translateToSql = (
       // 'LATEST PARTITION' supported callback only
       operator ===
         OPERATOR_ENUM_TO_OPERATOR_TYPE[Operators.LatestPartition].operation
-        ? // @ts-expect-error TODO: fix missing operator type `NOT LIKE` and `TEMPORAL RANGE`
           // Also to fix type incompatibility between AdhocFilter and Latest Partition callback args.
           OPERATORS_TO_SQL[operator](adhocFilter)
-        : // @ts-expect-error TODO: fix missing operator type `NOT LIKE` and `TEMPORAL RANGE`.
           OPERATORS_TO_SQL[operator];
     return getSimpleSQLExpression(subject, op, comparator);
   }
